@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from "react";
-import { api } from "../../lib/api"
-
+import { useNavigate } from "react-router-dom";
 import { BsCartPlus } from "react-icons/bs";
+
 import { CartContext } from "../../context/cartContext";
+import { api } from "../../lib/api"
 
 export interface ProductProps{
     id: number;
@@ -15,7 +16,8 @@ export interface ProductProps{
 
 export function Home () {
     const [products, setProducts] = useState<ProductProps[]>([]);
-    const { addItemCart } = useContext(CartContext);
+    const { addItemCart, setInforProductItem } = useContext(CartContext);
+    const navegate = useNavigate();
 
     useEffect(()=> {
         async function getProducts() {
@@ -32,6 +34,11 @@ export function Home () {
         
    }
 
+   function handleItemInfo(item: ProductProps) {
+    setInforProductItem(item);
+    navegate(`/product/${item.id}`);
+   }
+
     return(
         <div>
             <main className="max-w-7xl px-4 mx-auto">
@@ -42,7 +49,10 @@ export function Home () {
                     {products.map((product)=> (
                         <section 
                         key={product.id}
-                        className="w-full rounded-lg max-w-full mb-2">
+                        className="w-full rounded-lg max-w-full mb-2"
+                        onClick={() => {
+                            handleItemInfo(product)
+                        }}>
                         <div className="w-full">
                             <img className="rounded-lg" src={product.cover} />
                         </div>

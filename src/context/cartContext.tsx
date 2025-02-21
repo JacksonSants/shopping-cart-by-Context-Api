@@ -1,10 +1,13 @@
-import { useContext, ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
+import { toast } from "react-hot-toast"
+
 import { ProductProps } from "../pages/home";
 
 interface CartContextData{
     cart: CartProps[],
     cartAmout: number,
-    addItemCart: (product: ProductProps) => void, 
+    addItemCart: (product: ProductProps) => void,
+    setInforProductItem: (product: ProductProps) => void;
     removeItemForCart: (product: CartProps) => void,
     total: string,
 }
@@ -29,7 +32,7 @@ export function CartProvider({ children } : CartProviderProps) {
 
     const [cart, setCart] = useState<CartProps[]>([]);
     const [total, setTotal] = useState("");
-
+    const [infoProduct, setInfoProduct] = useState<ProductProps>();
     function addItemCart(newItem: ProductProps) {
         const indexIem = cart.findIndex(item => item.id === newItem.id);
 
@@ -50,6 +53,7 @@ export function CartProvider({ children } : CartProviderProps) {
 
         setCart(products => [...products, data]);
         totalResultCart([...cart, data])
+        toast.success("Produto adicionado ao carrinho");
 
     }
 
@@ -84,6 +88,11 @@ export function CartProvider({ children } : CartProviderProps) {
         )
         setTotal(formatResult);
     }
+
+    function setInforProductItem(item: ProductProps){
+        console.log(item);
+        setInfoProduct(item);
+    }
     
 
     return(
@@ -92,7 +101,8 @@ export function CartProvider({ children } : CartProviderProps) {
             cartAmout: cart.length,
             addItemCart,
             removeItemForCart,
-            total
+            total,
+            setInforProductItem,
             }}>
             { children }
         </CartContext.Provider>
