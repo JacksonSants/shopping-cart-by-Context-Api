@@ -32,7 +32,7 @@ export function CartProvider({ children } : CartProviderProps) {
 
     const [cart, setCart] = useState<CartProps[]>([]);
     const [total, setTotal] = useState("");
-    const [infoProduct, setInfoProduct] = useState<ProductProps>();
+    const [, setInfoProduct] = useState<ProductProps>();
     function addItemCart(newItem: ProductProps) {
         const indexIem = cart.findIndex(item => item.id === newItem.id);
 

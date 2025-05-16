@@ -5,7 +5,7 @@ import { FaShoppingCart } from "react-icons/fa"
 
 export function Cart () {
 
-    const { cart, cartAmout, addItemCart, removeItemForCart, total} = useContext(CartContext)
+    const { cart, addItemCart, removeItemForCart, total} = useContext(CartContext)
     return(
         <div className="w-full max-w-7xl mx-auto">
             <h1 className="font-medium text-2xl text-center my-4">Meu carrinho</h1>

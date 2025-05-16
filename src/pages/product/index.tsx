@@ -1,10 +1,6 @@
 import { BsCartPlus } from "react-icons/bs";
-import { useParams } from "react-router-dom";
-import { useContext  } from "react";
-import { CartContext } from "../../context/cartContext";
 
 export function Product() {
-    const { id } = useParams();
 
     return (
         <div>
